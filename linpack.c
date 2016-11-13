@@ -64,30 +64,26 @@ static REAL second   (void);
 static void *mempool;
 
 
-void main(void)
-
-    {
-    char    buf[80];
+int main(void)
+{
+    char    *arsize_input;
     int     arsize;
     long    arsize2d,memreq,nreps;
     size_t  malloc_arg;
 
-    while (1)
-        {
-        printf("Enter array size (q to quit) [200]:  ");
-        fgets(buf,79,stdin);
-        if (buf[0]=='q' || buf[0]=='Q')
-            break;
-        if (buf[0]=='\0' || buf[0]=='\n')
-            arsize=200;
-        else
-            arsize=atoi(buf);
+    arsize_input = getenv("LINPACK_ARRAY_SIZE");
+    if (arsize_input == NULL) {
+        arsize = 200;
+    } else {
+        arsize = atoi(arsize_input);
+    }
+
         arsize/=2;
         arsize*=2;
         if (arsize<10)
             {
             printf("Too small.\n");
-            continue;
+            return 1;
             }
         arsize2d = (long)arsize*(long)arsize;
         memreq=arsize2d*sizeof(REAL)+(long)arsize*sizeof(REAL)+(long)arsize*sizeof(int);
@@ -96,7 +92,7 @@ void main(void)
         if (malloc_arg!=memreq || (mempool=malloc(malloc_arg))==NULL)
             {
             printf("Not enough memory available for given array size.\n\n");
-            continue;
+            return 2;
             }
         printf("\n\nLINPACK benchmark, %s precision.\n",PREC);
         printf("Machine precision:  %d digits.\n",BASE10DIG);
@@ -109,8 +105,7 @@ void main(void)
             nreps*=2;
         free(mempool);
         printf("\n");
-        }
-    }
+}
 
 
 static REAL linpack(long nreps,int arsize)
