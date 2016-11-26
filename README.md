@@ -4,30 +4,14 @@ This repository contains an implementation of the Linpack benchmark obtained fro
 
 To run the benchmark:
 
-- `sudo docker run -it --rm 0x000edd1e/linpack`
+- `sudo docker run -it --rm elreyes/linpack`
 
-Alterntively, you can clone this repository and build your own Docker image locally from scratch. To do so, follow these steps:
-
-- Clone this repository (requires git to be installed in your system... Google for your particular OS/distro)
-  - `git clone https://github.com/ereyes01/linpack.git`
-
-- Build the Docker image
-  - `cd linpack`
-  - `sudo docker build -t linpack ./`
-  
-- Run the benchmark
-  - `sudo docker run -it --rm linpack`
-  
 The benchmark results will be printed on the console.
-
-It is possible to customize the array size used by the benchmark code (size is 200 by default). To do this, set an environment variable when running the container:
-
-`sudo docker run -it --rm -e LINPACK_ARRAY_SIZE=600 linpack`
 
 Here are some sample results from my system with the default array size of 200:
 
 ```
-$ sudo docker run -it --rm linpack
+$ sudo docker run -it --rm elreyes/linpack
 Memory required:  315K.
 
 
@@ -44,3 +28,22 @@ Average rolled and unrolled performance:
    16384   5.70  77.98%   2.87%  19.14%  4882638.725
    32768  11.41  77.98%   2.87%  19.14%  4878150.976
 ```
+
+It is possible to customize the array size used by the benchmark code (size is 200 by default). To do this, set an environment variable when running the container:
+
+`sudo docker run -it --rm -e LINPACK_ARRAY_SIZE=600 elreyes/linpack`
+
+### Building the Image Locally
+
+Alterntively, you can clone this repository and build your own Docker image locally from scratch. To do so, follow these steps:
+
+- Clone this repository (requires git to be installed in your system... Google for your particular OS/distro)
+  - `git clone https://github.com/ereyes01/linpack.git`
+
+- Build the Docker image
+  - `cd linpack`
+  - `sudo docker build -t linpack ./`
+  
+- Run the benchmark
+  - `sudo docker run -it --rm linpack`
+  
