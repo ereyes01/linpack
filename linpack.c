@@ -68,8 +68,8 @@ int main(void)
 {
     char    *arsize_input;
     int     arsize;
-    long    arsize2d,memreq,nreps;
-    size_t  malloc_arg;
+    long    arsize2d,nreps;
+    size_t  malloc_arg,memreq;
 
     arsize_input = getenv("LINPACK_ARRAY_SIZE");
     if (arsize_input == NULL) {
